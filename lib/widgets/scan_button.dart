@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:lector_qr/providers/scan_list_provider.dart';
+import 'package:lector_qr/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class ScanButton extends StatelessWidget {
@@ -19,7 +20,8 @@ class ScanButton extends StatelessWidget {
         final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
 
         if(barcodeScanRes != "-1") {
-          scanListProvider.newScan(barcodeScanRes);
+          final newScan = await scanListProvider.newScan(barcodeScanRes);
+          launchURL(context, newScan);
         }
 
       },
